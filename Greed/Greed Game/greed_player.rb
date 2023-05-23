@@ -1,11 +1,11 @@
 require './greed'
 class GreedPlayer
     attr_accessor :turn_score, :total_score, :name
-    NO_OF_DICE = 5
-    MINIMUM_TURN_SCORE = 300
     def initialize(name)
       @name = name
       @total_score = 0
+      @num_of_dice=5
+      @minimum_turn_score = 300
       @diceSet = DiceSet.new
     end
   
@@ -13,7 +13,7 @@ class GreedPlayer
       @turn_score = 0
       rollNumber = 0
   
-      dicesToRoll = NO_OF_DICE
+      dicesToRoll = @num_of_dice
       while dicesToRoll > 0 do
         rollNumber += 1
         @diceSet.roll(dicesToRoll)
@@ -42,14 +42,14 @@ class GreedPlayer
       if reactToTurnScore
         puts "\nIn this turn, you have added #{turn_score} points to your score."
       elsif @turn_score > 0
-        puts " \nIn this turn, your score of #{turn_score} points wasn't enough to \"get in the game\" (min. #{MINIMUM_TURN_SCORE} points required)."
+        puts " \nIn this turn, your score of #{turn_score} points wasn't enough to \"get in the game\" (min. #{@minimum_turn_score} points required)."
       end
   
       puts "Your total score is: #{total_score} points.\n"
     end
   
     def reactToTurnScore
-      if @turn_score >= MINIMUM_TURN_SCORE or @total_score >= MINIMUM_TURN_SCORE
+      if @turn_score >= @minimum_turn_score or @total_score >= @minimum_turn_score
         @total_score += @turn_score
         return @turn_score > 0
       end
@@ -58,7 +58,7 @@ class GreedPlayer
   
     def determineDicesToRoll(okToRoll, numberOfRemainingDice)
       if okToRoll
-        numberOfRemainingDice == 0 ? NO_OF_DICE : numberOfRemainingDice
+        numberOfRemainingDice == 0 ? @num_of_dice : numberOfRemainingDice
       else
         0
       end
