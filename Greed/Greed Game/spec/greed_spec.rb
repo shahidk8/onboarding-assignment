@@ -1,4 +1,6 @@
 require_relative '../greed'
+require_relative '../game_player'
+require_relative '../greed_player'
 
 describe 'Dice Rolls' do
     before :all do
