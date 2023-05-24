@@ -23,7 +23,7 @@ class Watcher extends events.EventEmitter {
         if(err) throw err;
         let data = '';
         let logs = [];
-        fs.read(fd,buffer,0,buffer.length,prev.size,(err,bytesRead) => {
+        fs.read(fd,buffer,0,buffer.length,prev?.size,(err,bytesRead) => {
             if(err) throw err;
             if(bytesRead > 0)
             {
