@@ -1,4 +1,5 @@
 require './greed'
+require './dice'
 class GreedPlayer
     attr_accessor :turn_score, :total_score, :name
     def initialize(name)
@@ -9,7 +10,7 @@ class GreedPlayer
       @diceSet = DiceSet.new
     end
   
-    def playTurn
+    def playTurn(test_input = nil)
       @turn_score = 0
       rollNumber = 0
   
@@ -31,7 +32,7 @@ class GreedPlayer
             puts 'Would you like to roll a new series of 5 dice? [Y,n]'
           end
   
-          okToRoll = userConfirmation?
+          okToRoll = test_input || userConfirmation? 
           dicesToRoll = determineDicesToRoll(okToRoll, non_scoring_dice.size)
         else
           puts 'No points in this roll! You lose all of this turn\'s points, and your turn is over...'
@@ -49,7 +50,7 @@ class GreedPlayer
     end
   
     def reactToTurnScore
-      if @turn_score >= @minimum_turn_score or @total_score >= @minimum_turn_score
+      if @turn_score >= @minimum_turn_score || @total_score >= @minimum_turn_score
         @total_score += @turn_score
         return @turn_score > 0
       end

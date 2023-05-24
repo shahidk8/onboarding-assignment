@@ -8,8 +8,7 @@ class GreedGame
   def playGame
     puts "\nWelcome to GREED\n"
     player_names = []
-    puts "\nPlease enter number of players. Minimum 2 players required\n"
-    player_num = gets.to_i
+    player_num = 0
     while player_num < 2 do
       puts "\nPlease enter number of players. Minimum 2 players required\n"
       player_num = gets.to_i
@@ -49,21 +48,7 @@ class GreedGame
       @is_final_round = true
       return true
     end
-    return false
-  end
-end
-
-class DiceSet
-  attr_reader :values
-
-  def roll(len)
-    @values = []
-    if len<=5 && len>0
-      len.times { @values << rand(6) + 1 }
-    else
-      "maximum allowed dice set is 5"
-    end
-
+    false
   end
 end
 
