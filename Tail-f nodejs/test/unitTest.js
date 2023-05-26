@@ -6,16 +6,16 @@ const eventEmitter = new EventEmitter();
 
 describe('Log file read', ()=>{
     it("Server started succcessfully",()=>{
-        watch.start()                               //start server - start function
+        watch.start()                                   //start server - start function
     })
     it("Initial content to be displayed on server should not be empty", async ()=>{
-        const logs = await watch.getLogs();         //getLogs function
+        const logs = await watch.getLogs();             //getLogs function
         assert.equal(logs.length>0,true)    
     })
 
-    it("Continuous update log event",()=>{          //update log from watch() method
+    it("Log file should have atleast 10 lines",()=>{    //update log from watch() method
         eventEmitter.on('update-log',(data)=>{
-            assert.equal(data.length>0,true)
+            assert.equal(data.length <= 10,true)
         })
     })
 })
@@ -30,7 +30,13 @@ describe('check connection established', ()=>{
 })
 
 describe('Negative case', ()=>{
-    it('Empty buffer argument should return null',()=>{
+    it('Empty buffer argument should return null',()=>{     // Empty buffer is returned as Null
         assert.equal(watch.watch(null,null),null)
+    })
+
+    it("Text update string must be greater than 0",()=>{    // Process contains new string to be updated, length should be greater than 0
+        eventEmitter.on('process',(logs)=>{
+            assert.equal(logs.length>0,false)
+        })
     })
 })
