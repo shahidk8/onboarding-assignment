@@ -1,0 +1,19 @@
+<%if @user.errors%>
+  <div id = "errors">
+    <%@user.errors.full_messages.each do |error|%>
+      <p>
+        <%=error%>
+      </p>
+    <%end%>
+  </div>
+<%end%>
+<div class="signup">
+  <div class="container">
+    <%= form_for @user, :method => "post" do |f| %>
+      <div><%= f.text_field :name, :placeholder => 'Name' %></div>
+      <div><%= f.email_field :email, :placeholder => 'Email' %></div>
+      <div><%= f.password_field :password, :placeholder => 'Password' %></div>
+      <div><%= f.submit "Signup", :class => "form-btn" %></div>
+    <% end %>
+  </div>
+</div>
