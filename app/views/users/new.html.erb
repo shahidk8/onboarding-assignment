@@ -1,3 +1,49 @@
+<script>
+  $(document).ready(function() {
+
+    $('#password').on("input", function() {
+      // event.preventDefault();
+      var password = this.value;
+      var errors = [];
+
+      // Password length validation
+      if (password.length <= 8) {
+        errors.push('Password must be greater than 8 characters.');
+        $('#submit_button').attr('class', "btn btn-primary ml-3 disabled")
+      }
+
+      // Uppercase letter validation
+      if (!/[A-Z]/.test(password)) {
+        errors.push('Password must include at least one uppercase letter.');
+      }
+
+      // Lowercase letter validation
+      if (!/[a-z]/.test(password)) {
+        errors.push('Password must include at least one lowercase letter.');
+      }
+
+      // Number validation
+      if (!/[0-9]/.test(password)) {
+        errors.push('Password must include at least one number.');
+      }
+
+      // Display errors
+      if (errors.length > 0) {
+        var errorHtml = '';
+        $.each(errors, function(index, error) {
+          errorHtml += '<p>' + error + '</p>';
+        });
+        $('#password-errors').html(errorHtml);
+      } else {
+        // Submit the form if validation passes
+        var errorHtml = '';
+        $('#password-errors').html(errorHtml);
+        $('#submit_button').attr('class', "btn btn-primary ml-3");
+      }
+    });
+  });
+</script>
+
 <%if @user.errors%>
   <div id = "errors">
     <%@user.errors.full_messages.each do |error|%>
@@ -9,11 +55,15 @@
 <%end%>
 <div class="signup">
   <div class="container">
-    <%= form_for @user, :method => "post" do |f| %>
-      <div><%= f.text_field :name, :placeholder => 'Name' %></div>
-      <div><%= f.email_field :email, :placeholder => 'Email' %></div>
-      <div><%= f.password_field :password, :placeholder => 'Password' %></div>
-      <div><%= f.submit "Signup", :class => "form-btn" %></div>
+    <br>
+    <br>
+
+    <%= form_for @user,  class: "form-group", id: "signup_form" , :method => "post" do |f| %>
+      <div><%= f.text_field :name, class:"form-control mb-2", :placeholder => 'Name' %></div>
+      <div><%= f.email_field :email, class:"form-control mb-2", :placeholder => 'Email' %></div>
+      <div><%= f.password_field :password, id: "password" ,class:"form-control mb-2", :placeholder => 'Password' %></div>
+      <div><%= f.submit "Signup", class: "btn btn-primary ml-3 disabled", id: "submit_button" %></div>
+      <div id="password-errors"></div>
     <% end %>
   </div>
 </div>

@@ -22,14 +22,14 @@
     <%end%>
   </div>
 <%end%>
-<%= form_for @document, :multipart => true, :id => "myform" do |f|%>
+<%= form_for @document,:action => :upload, class: "form-group" ,:multipart => true, :id => "myform" do |f|%>
   <p>
     <%= f.label "document" %>
-    <%= f.file_field :doc %><br/>
+    <%= f.file_field :doc, class:"form-control mb-2" %><br/>
     <%= f.label "description" %>
-    <%= f.text_field :description %>
+    <%= f.text_field :description, class:"form-control mx-sm-3 mb-2" %>
   </p>
   <p>
-    <%= f.submit "Upload", :onclick => "return validateform();" %>
+    <%= f.submit "Upload", :onclick => "return validateform();", class: "btn btn-primary ml-3" %>
   </p>
 <% end %>

@@ -1,8 +1,6 @@
 class UsersController < ApplicationController
 
-    before_filter :redirect_if_signed_in?, :only => [:new]
-    before_filter :require_admin, :only => [:index, :destroy, :d_admin, :a_admin]
-  
+  before_action :redirect_if_signed_in?, :only => [:new]  
     def index
       @users = User.all
     end
@@ -34,26 +32,26 @@ class UsersController < ApplicationController
       end
       redirect_to users_path
     end
-  
-    def a_admin
-      if user = User.find_by_id(params[:id])
-        user.change_role("admin")
-        flash[:notice]="Admin Added"
-      else
-        flash[:notice]="No Such User"
-      end
-      redirect_to users_path
+
+    def edit
+      @user = User.find(params[:id])
     end
-  
-    def d_admin
-      if user = User.find_by_id(params[:id])
-        user.change_role(nil)
-        flash[:notice]="Admin removed"
+
+    def update
+      @user = User.find(params[:id]) # Find the user to update
+      puts "user_params :"+params.to_s
+      if @user.update(user_params) # Update the user's attributes
+        flash[:notice]= "Successfully updated"
+        redirect_to @user
       else
-        flash[:notice]="No Such User"
+        flash[:notice]= "Error while updating"
+        render :edit
       end
-      redirect_to users_path
     end
   
   end
   
+
+  def user_params
+    params.require(:user).permit(:name, :email,:password,:role)
+  end

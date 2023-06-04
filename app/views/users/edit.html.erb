@@ -1,0 +1,18 @@
+
+
+    <div>
+<p>Edit Profile</p>
+
+<%= form_with model: @user, url: user_path(@user), method: :patch ,class: "form-group" , id: "updateform" do |f| %>
+  <p>
+    <%= f.label "Name" %>
+    <%= f.text_field :name, class:"form-control mb-2" %><br/>
+    <%= f.label "Email" %>
+    <%= f.text_field :email, class:"form-control mx-sm-3 mb-2" %>
+  </p>
+  <p>
+    <%= f.submit "Update", class: "btn btn-primary ml-3" %>
+  </p>
+<% end %>
+
+    </div>

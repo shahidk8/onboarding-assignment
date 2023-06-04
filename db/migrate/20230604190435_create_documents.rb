@@ -5,6 +5,7 @@ class CreateDocuments < ActiveRecord::Migration[7.0]
       t.string :description
       t.string :path
       t.integer :user_id
+      t.boolean :shared
 
       t.timestamps
     end

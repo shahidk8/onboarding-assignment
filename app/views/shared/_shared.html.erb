@@ -30,7 +30,7 @@ $(document).ready(function() {
   }
 </script>
 
-<title>Documents</title>
+<title>Shared Documents</title>
 <head>
     <%= javascript_include_tag 'https://code.jquery.com/jquery-3.6.0.min.js' %>
 </head>
@@ -46,16 +46,15 @@ $(document).ready(function() {
   </thead>
 <tbody>
     <% @documents.each_with_index do |document, index| %>
+    <% if document.shared %>
       <tr scope="row">
     <td><%= document.name %></td>
     <td><p class="description"><%= document.description %></p></td>
     <td>
-      <%= link_to 'Delete', document_path(document), method: :delete, class: "btn btn-danger ml-3", id: "delete_#{index+1}" %>
-      <%= link_to 'Download', document_path(document), class: "btn btn-success ml-3 disabled", id: "download_#{index+1}"%> 
-      <%= link_to 'Copy',"#" ,id: "copy_#{index+1}", value: document_path(document) ,class: "bi bi-clipboard-minus", :onclick => "return copytoclipboard(#{index+1})"%>
-      Share: <%= check_box_tag("checkbox_#{index+1}", "#{index+1}" ,document.shared, class: "item-checkbox") %>
+      <%= link_to 'Download', document_path(document), class: "btn btn-success ml-3", id: "download_#{index+1}"%> 
     </td>
   </tr>
+  <% end%>
     <% end %>
   </tbody>
 </table>

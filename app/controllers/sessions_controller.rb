@@ -1,10 +1,10 @@
 class SessionsController < ApplicationController
 
-    before_filter :redirect_if_signed_in?, :only => [:new]
-  
+  before_action :redirect_if_signed_in?, :only => [:new]
+
     def new
     end
-  
+
     def create
       email = params[:session][:email]
       password = params[:session][:password]
@@ -17,11 +17,9 @@ class SessionsController < ApplicationController
         redirect_to login_url
       end
     end
-  
-    def destroy
-      session[:user_id]=nil
-      redirect_to root_url
-    end
-  
+
+  def destroy
+    session[:user_id]=nil
+    redirect_to root_url
   end
-  
+end

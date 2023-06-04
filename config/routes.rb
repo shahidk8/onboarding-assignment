@@ -1,16 +1,15 @@
 Rails.application.routes.draw do
   root :to => 'documents#index'
 
-  resources :documents, :except => [:edit, :put]
-  resources :users, :only => [:index, :destroy, :create]
+  resources :documents
+  resources :users, :only => [:index, :destroy, :create, :edit, :update]
 
   get '/signup' => 'users#new'
-  put '/add_admin/:id' => 'users#a_admin'
-  put '/delete_admin/:id' => 'users#d_admin'
-
+  patch '/documents/:id/update_column', to:'documents#update_column' 
+  get '/shared_view', to: 'documents#shared_view'
   get '/login' => 'sessions#new'
   post '/login' => 'sessions#create'
-  delete '/logout' => 'sessions#destroy'
+  get '/logout' => 'sessions#destroy'
 
   get "*path", :to => redirect('/')
 end

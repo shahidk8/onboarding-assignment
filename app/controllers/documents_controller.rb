@@ -1,9 +1,10 @@
+require "json"
 class DocumentsController < ApplicationController
 
-    before_filter :require_user, :only => [:new, :index, :destroy, :show]
+  before_action :require_user, :only => [:new, :index, :destroy, :show, :update]
   
     def index
-        @documents = current_user.admin? ? Document.all : current_user.documents
+        @documents = current_user.documents
     end
   
     def new
@@ -13,7 +14,9 @@ class DocumentsController < ApplicationController
     def create
       description = params[:document][:description]
       temp = params[:document][:doc]
-      @document = current_user.documents.build(:path => temp, :description => description)
+
+      json_temp = JSON.dump({:original_filename => temp.original_filename, :tempfile => temp.tempfile, :path => temp.path})
+      @document = current_user.documents.build(:path => json_temp, :description => description)
       if @document.save
         flash[:notice]="File Uploaded Successfully!"
         redirect_to documents_path
@@ -34,19 +37,32 @@ class DocumentsController < ApplicationController
         redirect_to root_url
       end
     end
+    
+    def update_column
+      @document = Document.find(params[:id])
+      puts "params #{params}"
+      if @document.update_attribute(:shared, params[:column_name])
+        true
+      end
+    end
   
     def destroy
-      if document = Document.find_by_id(params[:id])
-        if document.user_id == session[:user_id] || current_user.admin?
-          Document.destroy(params[:id])
-          flash[:notice]="File deleted"
+      @document = Document.find(params[:id])
+      if @document
+        if @document.user_id == session[:user_id]
+          @document.destroy
+          flash[:notice] = "File deleted"
         else
-          flash[:notice]="You do not own this file"
+          flash[:notice] = "You do not own this file"
         end
       else
-        flash[:notice]="No such file"
+        flash[:notice] = "No such file"
       end
       redirect_to root_url
     end
   
+  def shared_view
+    @documents = current_user.documents
+    render 'shared/_shared'
+  end
   end

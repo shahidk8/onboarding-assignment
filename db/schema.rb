@@ -10,12 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_01_202109) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_04_190435) do
   create_table "documents", force: :cascade do |t|
     t.string "name"
     t.string "description"
     t.string "path"
     t.integer "user_id"
+    t.boolean "shared"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
