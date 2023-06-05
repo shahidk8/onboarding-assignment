@@ -6,6 +6,9 @@ commands:
 2. rails db:migrate
 3. rails s
 
+To run all test cases, run:
+rspec spec/controllers/documents_controller_test.rb spec/controllers/sessions_controller_test.rb spec/controllers/users_controller_test.rb spec/models/document_spec.rb spec/models/user_spec.rb
+
 Refer: https://github.com/browserstack/tech-onboarding/blob/master/rapid-share-without-gems/README.md
 
 User Management
