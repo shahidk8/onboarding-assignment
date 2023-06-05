@@ -1,24 +1,33 @@
-# README
+Objective
+Build an online file sharing application using Rails.
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+commands: 
+1. bundle install
+2. rails db:migrate
+3. rails s
 
-Things you may want to cover:
+For Running tests:
 
-* Ruby version
+rspec spec/controllers/sessions_controller_test.rb 
+rspec spec/models/document_spec.rb
+rspec spec/models/user_spec.rb
 
-* System dependencies
+Refer: https://github.com/browserstack/tech-onboarding/blob/master/rapid-share-without-gems/README.md
 
-* Configuration
+User Management
+Sign up
+As a new user, I should be able to register for a new account. The application should ask for the following details about a new user:
 
-* Database creation
+Unique username: The application should provide a warning incase the username is already taken.
+Email address
+Password: The password should contain -
+Greater than 8 characters
+Include at least one uppercase letter
+Include at least one lowercase letter
+Include at least one number
 
-* Database initialization
+Login
+Once an account is created, a user should be able to login to their account.
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+If the login is successful: They should be taken to their “File Dashboard” which will serve as their homepage and display the various files associated with their account.
+If the login is unsuccessful: Then the following message should be displayed - “Couldn’t find that user! Please try again”

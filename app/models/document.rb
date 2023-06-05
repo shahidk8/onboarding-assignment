@@ -41,7 +41,6 @@ class Document < ApplicationRecord
   
     def upload 
       return false if self.uploaded_file.nil?    
-      puts "this path #{self.uploaded_file}"
       @document = File.open(self.uploaded_file, "rb")
       File.open(self.path, "wb") do |f| 
         f.write(@document.read); 
