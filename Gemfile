@@ -11,6 +11,9 @@ gem "factory_bot_rails"
 
 gem 'rails-controller-testing'
 
+gem 'simplecov', require: false, group: :test
+
+gem 'shoulda-matchers', '~> 5.0'
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem "sprockets-rails"
 

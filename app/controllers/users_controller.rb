@@ -1,3 +1,4 @@
+# UsersController
 class UsersController < ApplicationController
 
   before_action :redirect_if_signed_in?, :only => [:new]  
@@ -20,7 +21,7 @@ class UsersController < ApplicationController
         redirect_to root_url
       else
         flash[:notice] = "Error signing up"
-        render "new"
+        render "new", status: :unprocessable_entity
       end
     end
   

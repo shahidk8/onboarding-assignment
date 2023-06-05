@@ -14,12 +14,11 @@ class Document < ApplicationRecord
     validates :path, :presence => true, :uniqueness =>true
     validates :user_id, :presence => true
   
-    private
 
     def set_params
       return false if self.path.nil?
     
-      path = JSON.parse(self.path,symbolize_names: true)
+      path = JSON.parse(self.path, symbolize_names: true)
       
       uploaded_file = ActionDispatch::Http::UploadedFile.new(
         filename: File.basename(path[:original_filename]),
@@ -31,8 +30,6 @@ class Document < ApplicationRecord
 
       self.uploaded_file = uploaded_file
 
-      # hash = DateTime.now.strftime("%Q")
-      # hashed_name = "#{hash}_#{self.name}"
       dir = "/Users/shahid/Documents/store/"
       Dir.mkdir(dir) unless File.exists?(dir)
       self.path = File.join(dir, self.name)
