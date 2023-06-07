@@ -19,15 +19,15 @@ $(document).ready(function() {
   });
   });
 });
-
-  function copytoclipboard(id) {
-      let checkbox = document.getElementById(`checkbox_${id}`)
-      if(checkbox.checked){
-        let value = document.getElementById(`copy_${id}`).getAttribute('value');
-        let url =window.location.host+"/"+value
-        navigator.clipboard.writeText(`${url}`)
-      }
+function copyToClipboard(id) {
+  let checkbox = $(`#checkbox_${id}`);
+  if (checkbox.prop('checked')) {
+    let value = $(`#copy_${id}`).attr('value');
+    let url = window.location.host + "/" + value;
+    navigator.clipboard.writeText(url);
   }
+}
+
 </script>
 
 <title>Documents</title>
@@ -40,6 +40,7 @@ $(document).ready(function() {
   <thead>
   <tr>
     <th scope="col">Documents</th>
+    <th scope="col">Upload Date</th>
     <th scope="col">Description</th>
     <th scope="col">Actions</th>
   </tr>
@@ -48,11 +49,12 @@ $(document).ready(function() {
     <% @documents.each_with_index do |document, index| %>
       <tr scope="row">
     <td><%= document.name %></td>
+    <td><p class="upload_date"><%= (document.created_at).strftime('%B %d %Y') %></p></td>
     <td><p class="description"><%= document.description %></p></td>
     <td>
       <%= link_to 'Delete', document_path(document), method: :delete, class: "btn btn-danger ml-3", id: "delete_#{index+1}" %>
       <%= link_to 'Download', document_path(document), class: "btn btn-success ml-3 disabled", id: "download_#{index+1}"%> 
-      <%= link_to 'Copy',"#" ,id: "copy_#{index+1}", value: document_path(document) ,class: "bi bi-clipboard-minus", :onclick => "return copytoclipboard(#{index+1})"%>
+      <%= link_to 'Copy',"#" ,id: "copy_#{index+1}", value: document_path(document) ,class: "bi bi-clipboard-minus", :onclick => "return copyToClipboard(#{index+1})"%>
       Share: <%= check_box_tag("checkbox_#{index+1}", "#{index+1}" ,document.shared, class: "item-checkbox") %>
     </td>
   </tr>

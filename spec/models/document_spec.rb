@@ -1,6 +1,5 @@
 require 'rails_helper'
 require 'shoulda-matchers'
-require 'json'
 
 RSpec.describe Document, type: :model do
 
@@ -23,4 +22,5 @@ RSpec.describe Document, type: :model do
   it "requires the path to be unique" do
     expect(Document.new()).not_to be_valid
   end
+
 end

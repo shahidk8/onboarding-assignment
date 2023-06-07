@@ -13,12 +13,12 @@ RSpec.describe SessionsController, type: :controller do
 
     context 'with valid credentials' do
       it 'sets the user_id in the session' do
-        post :create, params: { session: { email: user.email, password: user.password } }
+        post :create, params: { session: { email: user.email, password: user.password, user_name: user.user_name } }
         expect(session[:user_id]).to eq(user.id)
       end
 
       it 'redirects to the root url' do
-        post :create, params: { session: { email: user.email, password: user.password } }
+        post :create, params: { session: { email: user.email, password: user.password, user_name: user.user_name } }
         expect(response).to redirect_to(root_url)
       end
     end

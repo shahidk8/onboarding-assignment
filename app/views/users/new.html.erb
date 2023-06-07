@@ -59,6 +59,7 @@
     <br>
 
     <%= form_for @user,  class: "form-group", id: "signup_form" , :method => "post" do |f| %>
+      <div><%= f.text_field :user_name, class:"form-control mb-2", :placeholder => 'User Name' %></div>
       <div><%= f.text_field :name, class:"form-control mb-2", :placeholder => 'Name' %></div>
       <div><%= f.email_field :email, class:"form-control mb-2", :placeholder => 'Email' %></div>
       <div><%= f.password_field :password, id: "password" ,class:"form-control mb-2", :placeholder => 'Password' %></div>

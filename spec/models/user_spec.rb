@@ -1,16 +1,3 @@
-require 'rails_helper'
-
-# RSpec.describe User, type: :model do
-
-#   context 'when creating a user' do
-#     let(:user) { build :user }
-#     it 'should be valid user with all attributes' do
-#       expect(user.valid?).to eq(true)
-#     end
-#   end
-# end
-
-
 RSpec.describe User, type: :model do
   describe 'validations' do
     it { should validate_presence_of(:name) }
@@ -25,7 +12,7 @@ RSpec.describe User, type: :model do
   end
 
   describe 'password encryption' do
-    let(:user) { User.create(name: 'Test User', email: 'test@example.com', password: 'Password@123') }
+    let(:user) { User.create(name: 'Test User', email: 'test@example.com', password: 'Password@123', user_name: 'shahid123') }
 
     it 'encrypts the password' do
       expect(user.password_digest).not_to be_nil
@@ -39,4 +26,5 @@ RSpec.describe User, type: :model do
       expect(user.authenticate('wrong_password')).to eq(false)
     end
   end
+
 end

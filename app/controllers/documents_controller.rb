@@ -41,7 +41,6 @@ class DocumentsController < ApplicationController
     
     def update_column
       @document = Document.find(params[:id])
-      puts "params #{params}"
       if @document.update_attribute(:shared, params[:column_name])
         true
       end
@@ -66,4 +65,5 @@ class DocumentsController < ApplicationController
     @documents = current_user.documents
     render 'shared/_shared'
   end
-  end
+
+end

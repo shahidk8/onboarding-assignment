@@ -3,11 +3,10 @@ Build an online file sharing application using Rails.
 
 commands: 
 1. bundle install
-2. rails db:migrate
+2. rails db:create db:migrate
 3. rails s
 
-To run all test cases, run:
-rspec spec/controllers/documents_controller_test.rb spec/controllers/sessions_controller_test.rb spec/controllers/users_controller_test.rb spec/models/document_spec.rb spec/models/user_spec.rb
+For running test suite: rspec --pattern "{spec/controllers/*_controller_test.rb,spec/models/*_spec.rb}"
 
 Refer: https://github.com/browserstack/tech-onboarding/blob/master/rapid-share-without-gems/README.md
 

@@ -4,7 +4,7 @@
     <br>
     <br>
     <div class="form-control mb-4">
-      <%= f.email_field :email, class: "form-control",:placeholder => 'Email'%>
+      <%= f.text_field :user_name, class: "form-control",:placeholder => 'User name'%>
     </div>
     <div class="form-control mb-4">
       <%= f.password_field :password, class: "form-control",:placeholder => 'Password' %>
@@ -13,4 +13,5 @@
       <%= link_to "Sign up", signup_url, :class => "btn btn-primary btn-block mb-4" %>
     <% end %>
   </div>
+
 </div>

@@ -20,19 +20,21 @@ class Document < ApplicationRecord
     
       path = JSON.parse(self.path, symbolize_names: true)
       
+      hash = DateTime.now.strftime("%Q")
+      hashed_name = "#{hash}_#{path[:original_filename]}"
       uploaded_file = ActionDispatch::Http::UploadedFile.new(
         filename: File.basename(path[:original_filename]),
-        type: Mime::Type.lookup_by_extension(File.extname(path[:original_filename])[1..-1]),
+        type: Mime::Type.lookup_by_extension(File.extname(hashed_name)[1..-1]),
         tempfile: File.new(path[:path])
       )
     
       self.name = uploaded_file.original_filename
 
       self.uploaded_file = uploaded_file
-
-      dir = "/Users/shahid/Documents/store/"
+      
+      dir = "./uploaded_documents"
       Dir.mkdir(dir) unless File.exists?(dir)
-      self.path = File.join(dir, self.name)
+      self.path = File.join(dir, hashed_name)
     end
     
   

@@ -2,10 +2,7 @@
 class UsersController < ApplicationController
 
   before_action :redirect_if_signed_in?, :only => [:new]  
-    def index
-      @users = User.all
-    end
-  
+
     def new
       @user = User.new
     end
@@ -14,7 +11,8 @@ class UsersController < ApplicationController
       name = params[:user][:name]
       email = params[:user][:email]
       password = params[:user][:password]
-      @user = User.new({:name => name, :email => email, :password => password})
+      user_name = params[:user][:user_name]
+      @user = User.new({:name => name, :email => email, :password => password, :user_name => user_name})
       if @user.save
         session[:user_id] = @user.id
         flash[:notice]="Sucessfully signed up..."
@@ -24,15 +22,6 @@ class UsersController < ApplicationController
         render "new", status: :unprocessable_entity
       end
     end
-  
-    def destroy
-      if User.delete(params[:id]) != 0
-        flash[:notice]="User Deleted"
-      else
-        flash[:notice]="No Such User"
-      end
-      redirect_to users_path
-    end
 
     def edit
       @user = User.find(params[:id])
@@ -40,7 +29,6 @@ class UsersController < ApplicationController
 
     def update
       @user = User.find(params[:id]) # Find the user to update
-      puts "user_params :"+params.to_s
       if @user.update(user_params) # Update the user's attributes
         flash[:notice]= "Successfully updated"
         redirect_to @user
@@ -49,10 +37,10 @@ class UsersController < ApplicationController
         render :edit
       end
     end
-  
-  end
+    def user_params
+      params.require(:user).permit(:name, :email)
+    end
+
+end
   
 
-  def user_params
-    params.require(:user).permit(:name, :email,:password,:role)
-  end

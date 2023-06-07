@@ -5,9 +5,10 @@
   </button>
     <div class="navbar-text">
         <% if current_user %>
-            <%= link_to "#{current_user.email}", edit_user_path(current_user)%> &nbsp;
+            <%= link_to "#{current_user.name}", edit_user_path(current_user)%> &nbsp;
             <%= link_to "Log out", logout_url %>
         <% end %>
     </div>
   </div>
+
 </nav>
