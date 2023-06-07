@@ -41,8 +41,10 @@ class DocumentsController < ApplicationController
     
     def update_column
       @document = Document.find(params[:id])
-      if @document.update_attribute(:shared, params[:column_name])
-        true
+      if @document
+        if @document.update_attribute(:shared, params[:column_name]) && @document.user_id == session[:user_id]
+          true
+        end
       end
     end
   

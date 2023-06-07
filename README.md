@@ -6,7 +6,7 @@ commands:
 2. rails db:create db:migrate
 3. rails s
 
-For running test suite: rspec --pattern "{spec/controllers/*_controller_test.rb,spec/models/*_spec.rb}"
+For running test suite: rspec
 
 Refer: https://github.com/browserstack/tech-onboarding/blob/master/rapid-share-without-gems/README.md
 
